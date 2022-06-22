@@ -16,3 +16,12 @@ select * from
 (select name from country where name<>'INDIA' order by 1)a;
 
 select name from country order by nullif(name,'INDIA') nulls first;
+
+
+
+select name from (
+select name,
+count(case when name='INDIA' then name else null end) srt_key from country
+group by name
+) data
+order by srt_key desc,name;
